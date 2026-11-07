@@ -76,6 +76,19 @@ jobs:
             relative="${file#dist/}"
             curl --fail --location --retry 3 --silent --show-error "$SOURCE/$relative" --output "$file"
           done
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          challenge = re.compile(
+              r'<script>\(function\(\)\{function c\(\).*?__CF\$cv\$params.*?</script>',
+              re.DOTALL,
+          )
+          for html in Path("dist").rglob("*.html"):
+              source = html.read_text(encoding="utf-8")
+              cleaned = challenge.sub("", source)
+              html.write_text(cleaned, encoding="utf-8")
+          PY
           touch dist/.nojekyll
 
       - name: Keep the public repository as the durable source
