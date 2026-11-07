@@ -1,0 +1,102 @@
+name: Publish Luna to GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: luna-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Import the verified Luna build
+        shell: bash
+        env:
+          SOURCE: https://luna-in-every-tomorrow.plushcuckoo1.chatgpt.site
+        run: |
+          set -euo pipefail
+          files=(
+            dist/assets/patch-avatar-v2.webp
+            dist/assets/toy-room-v2.webp
+            dist/index.html
+            dist/script.js
+            dist/styles.css
+            dist/worlds/atlas.css
+            dist/worlds/atlas.js
+            dist/worlds/index.html
+            dist/worlds/toy/assets/cinematic-foreground-v1.png
+            dist/worlds/toy/assets/patch-master.png
+            dist/worlds/toy/assets/patch-sprite-atlas-v1.png
+            dist/worlds/toy/assets/patch-sprite-atlas-v2.png
+            dist/worlds/toy/assets/patch-spritesheet.webp
+            dist/worlds/toy/assets/props/carousel-v2.png
+            dist/worlds/toy/assets/props/carousel.png
+            dist/worlds/toy/assets/props/chef-toque.png
+            dist/worlds/toy/assets/props/fairylight-globe-v2.png
+            dist/worlds/toy/assets/props/fairylight-globe.png
+            dist/worlds/toy/assets/props/ibaco-sundae-v2.png
+            dist/worlds/toy/assets/props/quiet-chair-cat.png
+            dist/worlds/toy/assets/props/sundae-lamp-v2.png
+            dist/worlds/toy/assets/props/sundae-lamp.png
+            dist/worlds/toy/assets/room-architecture-v1.png
+            dist/worlds/toy/assets/toys/blue-guardian.png
+            dist/worlds/toy/assets/toys/pink-mischief.png
+            dist/worlds/toy/assets/toys/pocket-courage.png
+            dist/worlds/toy/assets/toys/slumber-doll.png
+            dist/worlds/toy/assets/toys/soft-listener.png
+            dist/worlds/toy/assets/toys/toy-family-v2.png
+            dist/worlds/toy/index.html
+            dist/worlds/toy/patch-virtual-companion.js
+            dist/worlds/toy/toy-room-scene.js
+            dist/worlds/toy/toy.css
+            dist/worlds/toy/toy.js
+            dist/worlds/worlds.js
+          )
+          rm -rf dist
+          for file in "${files[@]}"; do
+            mkdir -p "$(dirname "$file")"
+            relative="${file#dist/}"
+            curl --fail --location --retry 3 --silent --show-error "$SOURCE/$relative" --output "$file"
+          done
+          touch dist/.nojekyll
+
+      - name: Keep the public repository as the durable source
+        shell: bash
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add dist
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: import verified Luna production build"
+            git push
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
