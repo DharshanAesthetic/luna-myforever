@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#100812">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23100812'/%3E%3Cpath d='M32 48C12 36 16 20 25 20c5 0 7 4 7 4s2-4 7-4c9 0 13 16-7 28Z' fill='%23df7c9f'/%3E%3C/svg%3E">
+  <title>Patch's Moonlit Room — Luna's Universe</title>
+  <meta name="description" content="Patch, Luna's tiny guardian daemon, lives in a moonlit room made for quiet company, tiny hugs, and difficult days.">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="toy.css">
+</head>
+<body class="toy-world">
+  <a class="skip-link" href="#comfortActions">Skip to Patch's comfort actions</a>
+
+  <header class="world-chrome" aria-label="Toy World navigation">
+    <a class="back-link" href="../" aria-label="Return to the Universe Atlas">← ATLAS</a>
+    <p><strong>WORLD_01</strong><span>/</span> PATCH'S MOONLIT ROOM</p>
+    <a href="../../">OUR UNIVERSE ↗</a>
+  </header>
+
+  <main class="sanctum" id="toyWorld">
+    <section class="room-stage" id="roomStage" aria-labelledby="worldTitle">
+      <h1 class="sr-only" id="worldTitle">Patch's Moonlit Toy Room</h1>
+
+      <div class="cinema-world" id="cinemaWorld">
+
+      <img class="architecture" src="assets/room-architecture-v1.png" alt="" draggable="false">
+      <div class="clouds clouds-a" aria-hidden="true"></div>
+      <div class="clouds clouds-b" aria-hidden="true"></div>
+      <div class="moon-bloom" aria-hidden="true"></div>
+      <canvas class="room-fx" id="roomFx" aria-hidden="true"></canvas>
+      <div class="curtain-breeze" aria-hidden="true"></div>
+      <div class="rug-constellation" id="rugConstellation" aria-hidden="true"></div>
+
+      <div class="toy-family" id="toyFamily" aria-label="Luna's plush family">
+        <img class="toy-family-art" src="assets/toys/toy-family-v2.png" alt="Luna's five-member plush family">
+        <div class="toy-family-glow" aria-hidden="true"></div>
+        <button class="toy-hotspot blue" data-object="blue" aria-label="Visit Blue Guardian"><span></span></button>
+        <button class="toy-hotspot listener" data-object="listener" aria-label="Visit Soft-Eared Listener"><span></span></button>
+        <button class="toy-hotspot doll" data-object="doll" aria-label="Visit Sweet Slumber Doll"><span></span></button>
+        <button class="toy-hotspot pink" data-object="pink" aria-label="Visit Pink Mischief"><span></span></button>
+        <button class="toy-hotspot mint" data-object="mint" aria-label="Visit Pocket Courage"><span></span></button>
+      </div>
+
+      <button class="room-object carousel" data-object="carousel" aria-label="Play the carousel music box">
+        <img src="assets/props/carousel-v2.png" alt="Moon carousel music box">
+        <span class="music-notes" aria-hidden="true"></span>
+      </button>
+
+      <button class="room-object fairy-globe" data-object="globe" aria-label="Wake the fairylight globe">
+        <img src="assets/props/fairylight-globe-v2.png" alt="Fairylight apothecary globe">
+        <span class="fairies" aria-hidden="true"></span>
+      </button>
+
+      <button class="room-object sundae-lamp" data-object="lamp" aria-label="Toggle the cherry sundae nightlight">
+        <img src="assets/props/sundae-lamp-v2.png" alt="Cherry sundae dessert lamp">
+        <span class="lamp-aura" aria-hidden="true"></span>
+      </button>
+
+      <button class="room-object quiet-chair" data-object="cat" aria-label="Visit the quiet chair and Night Cat">
+        <img src="assets/props/quiet-chair-cat.png" alt="Wine velvet chair with Night Cat curled on its arm">
+        <span class="purr-rings" aria-hidden="true"></span>
+      </button>
+
+      <section class="memory-board" aria-live="polite" aria-label="Patch's message board">
+        <p class="eyebrow"><span class="presence-dot"></span> PATCH // PRESENT</p>
+        <p class="board-reminder" id="boardReminder">You don't have to be okay.</p>
+        <p class="board-copy" id="toySpeech">I'm right here. Stare at the moon as long as you want.</p>
+        <button class="board-whisper" id="nextWhisper" type="button">another quiet thought <span>↗</span></button>
+      </section>
+
+      <div class="patch-home" id="patchHome" data-patch-state="idle">
+        <div class="patch-halo" aria-hidden="true"></div>
+        <div class="patch-rig" id="patchRig" role="img" aria-label="Patch, Luna's animated guardian daemon plush">
+          <span class="patch-sprite" aria-hidden="true">
+            <img class="patch-sprite-frame is-visible" data-sprite-atlas="primary" src="assets/patch-sprite-atlas-v1.png" alt="">
+            <img class="patch-sprite-frame" data-sprite-atlas="primary" src="assets/patch-sprite-atlas-v1.png" alt="">
+            <img class="patch-sprite-frame" data-sprite-atlas="comfort" src="assets/patch-sprite-atlas-v2.png" alt="">
+            <img class="patch-sprite-frame" data-sprite-atlas="comfort" src="assets/patch-sprite-atlas-v2.png" alt="">
+          </span>
+          <span class="patch-heart-core" aria-hidden="true"></span>
+          <span class="patch-dream-orbit" aria-hidden="true"></span>
+          <span class="patch-magic-ring" aria-hidden="true"></span>
+          <span class="patch-stardust" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </span>
+          <span class="patch-sleep-z patch-sleep-z-one" aria-hidden="true">z</span>
+          <span class="patch-sleep-z patch-sleep-z-two" aria-hidden="true">z</span>
+        </div>
+        <div class="promise-thread" id="promiseThread" aria-hidden="true"></div>
+        <div class="heart-bubbles" id="heartBubbles" aria-hidden="true"></div>
+        <button class="pet-zone" id="petZone" type="button" aria-label="Give Patch a head pat"></button>
+      </div>
+
+      <div class="breath-orbit" id="breathOrbit" hidden aria-live="polite">
+        <span></span><b>Breathe in</b><small>1 / 3</small>
+      </div>
+
+      <img class="cinematic-foreground" src="assets/cinematic-foreground-v1.png" alt="" aria-hidden="true" draggable="false">
+
+      </div>
+
+      <nav class="comfort-dock" id="comfortActions" aria-label="Ways Patch can stay with you">
+        <button type="button" data-patch-action="hug"><span>♥</span><b>TINY HUG</b></button>
+        <button type="button" data-patch-action="cooking"><span>♨</span><b>IBACO</b></button>
+        <button type="button" data-patch-action="quiet"><span>☾</span><b>QUIET</b></button>
+        <button type="button" data-patch-action="breathe"><span>✦</span><b>BREATHE</b></button>
+        <button type="button" data-patch-action="pinky"><span>∞</span><b>PROMISE</b></button>
+        <button type="button" data-patch-action="mischief"><span>⌁</span><b>MISCHIEF</b></button>
+        <button type="button" data-patch-action="sleep"><span>z</span><b>REST</b></button>
+        <button type="button" data-patch-action="pet"><span>♡</span><b>HEAD PAT</b></button>
+      </nav>
+
+      <div class="room-hint" id="roomHint" aria-live="polite">
+        <span>✦</span><p>Patch is awake. Touch him, choose a comfort, or explore anything that glows.</p>
+      </div>
+
+      <div class="wing-cocoon" id="wingCocoon" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <div class="room-loader" id="roomLoader" role="status" aria-live="polite">
+    <div class="loader-moon"><span></span></div>
+    <strong id="loadPercent">0%</strong>
+    <p>WAKING PATCH'S ROOM</p>
+    <small id="loadDetail">opening the curtains...</small>
+  </div>
+
+  <dialog class="room-guide" id="roomGuide">
+    <button class="guide-close" type="button" aria-label="Close the guide">×</button>
+    <p class="guide-step" id="guideStep">01 / 03</p>
+    <div class="guide-star" aria-hidden="true">✦</div>
+    <h2 id="guideTitle">This is Patch.</h2>
+    <p id="guideCopy">He is not a chatbot and he will never ask you to perform happiness. Touch his head, or simply let him sit with you.</p>
+    <button class="guide-next" id="guideNext" type="button">show me <span>→</span></button>
+  </dialog>
+
+  <noscript><p class="noscript-note">Patch needs JavaScript so he can move. The rest of the universe is still waiting at the Atlas.</p></noscript>
+  <script src="../worlds.js"></script>
+  <script type="module" src="toy.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a56dfad40d6d4fb1',t:'MTc5NDA3MTcyNA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a56dfad40d6d4fb1',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

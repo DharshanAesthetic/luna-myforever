@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05040a">
+  <meta name="description" content="A universe written for Luna.">
+  <meta property="og:title" content="Luna — In Every Universe">
+  <meta property="og:description" content="A private universe made from the things we remember and the life we still get to imagine.">
+  <title>Luna — In Every Universe</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="journey-locked">
+  <canvas id="universe" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scene-flare" aria-hidden="true"></div>
+
+  <aside id="deviceGate" class="device-gate" aria-labelledby="deviceTitle">
+    <div class="device-card glass">
+      <p class="eyebrow">A SMALL NOTE FROM THE UNIVERSE</p>
+      <div class="laptop-glyph" aria-hidden="true">┌─────────────┐<br>│  LUNA  ✦  │<br>└──────┬──────┘<br>&nbsp;&nbsp;&nbsp;───┴───</div>
+      <h2 id="deviceTitle">Open this on a laptop, ma.</h2>
+      <p>I built you a whole sky. It deserves a bigger window.</p>
+      <button id="mobileContinue" class="hand-button" type="button">I’m too curious — open anyway</button>
+    </div>
+  </aside>
+
+  <header class="hud" aria-label="Experience controls">
+    <a class="brand" href="#boot" aria-label="Return to the beginning">
+      <span class="pulse"></span>LUNA <small>in every universe</small>
+    </a>
+    <div class="hud-actions">
+      <span id="chapterLabel">00 / boot</span>
+      <a class="icon-button world-link" href="worlds/">✦ worlds</a>
+      <button id="guideButton" class="icon-button" type="button" aria-haspopup="dialog">? guide</button>
+      <button id="soundButton" class="icon-button" type="button" aria-pressed="false" aria-label="Turn ambient sound on">sound: off</button>
+    </div>
+  </header>
+
+  <nav class="story-rail" aria-label="Story chapters">
+    <a href="#origin" data-rail="origin"><span>01</span><b>origin</b></a>
+    <a href="#constellation" data-rail="constellation"><span>02</span><b>memories</b></a>
+    <a href="#goddess" data-rail="goddess"><span>03</span><b>myth</b></a>
+    <a href="#promise" data-rail="promise"><span>04</span><b>promise</b></a>
+    <a href="#garden" data-rail="garden"><span>05</span><b>garden</b></a>
+    <a href="#letter" data-rail="letter"><span>06</span><b>letter</b></a>
+    <a href="#proposal" data-rail="proposal"><span>07</span><b>question</b></a>
+    <a href="#dream" data-rail="dream"><span>08</span><b>dream</b></a>
+    <a href="#forever" data-rail="forever"><span>09</span><b>next</b></a>
+    <a href="worlds/" class="world-rail"><span>10</span><b>worlds</b></a>
+  </nav>
+
+  <aside id="directorCue" class="director-cue" aria-live="polite">
+    <span id="directorMark">00</span>
+    <p><b id="directorVerb">begin here</b><small id="directorText">Run the little universe when you are ready.</small></p>
+  </aside>
+
+  <div id="guideStar" class="guide-star" aria-live="polite" aria-hidden="true">
+    <span class="star-core" aria-hidden="true">✦</span>
+    <span class="butterfly butterfly-a" aria-hidden="true"><i></i></span>
+    <span class="butterfly butterfly-b" aria-hidden="true"><i></i></span>
+    <span class="butterfly butterfly-c" aria-hidden="true"><i></i></span>
+    <p><b id="guideStarTitle">I’m your guiding star.</b><small id="guideStarText">Follow me. I’ll show you exactly where the next piece is waiting.</small></p>
+  </div>
+
+  <dialog id="guideDialog" class="guide-dialog" aria-labelledby="guideDialogTitle">
+    <button class="dialog-close guide-close" type="button" aria-label="Close guide">×</button>
+    <p class="eyebrow">YOU DON’T NEED A MAP</p>
+    <h2 id="guideDialogTitle">I’ll be your<br>guiding star.</h2>
+    <div class="guide-promise">
+      <div class="guide-orbit" aria-hidden="true"><span>✦</span><i></i><i></i><i></i></div>
+      <div>
+        <p>You won’t have to guess where to look or what to touch.</p>
+        <p>The star and its butterflies will move to the next moment. The right thing will glow. The next chapter only opens after you have found everything here.</p>
+        <p><em>Just follow them. I won’t let you miss a piece of us.</em></p>
+      </div>
+    </div>
+    <button class="command guide-start" type="button"><span>✦</span> stay with me --begin</button>
+  </dialog>
+
+  <section id="patchCompanion" class="patch-companion" data-patch-state="idle" aria-label="Patch, Luna's tiny companion">
+    <div id="patchWhisper" class="patch-whisper" role="status" aria-live="polite" hidden>
+      <p id="patchWhisperText">I’m here. No reply required.</p>
+    </div>
+    <button id="patchSummon" class="patch-summon" type="button" aria-controls="patchDen" aria-expanded="false">
+      <span class="patch-mini" aria-hidden="true"><img src="assets/patch-avatar-v2.webp" alt=""></span>
+      <span><b>PATCH</b><small>tiny guardian daemon</small></span>
+    </button>
+  </section>
+
+  <dialog id="patchDen" class="patch-den" aria-labelledby="patchTitle">
+    <button class="dialog-close patch-close" type="button" aria-label="Let Patch return to the corner">×</button>
+    <div class="patch-den-grid">
+      <div class="patch-stage" aria-label="Interactive Patch puppet">
+        <div class="patch-moon-halo" aria-hidden="true"></div>
+        <div id="patchModelMount" class="patch-model-mount"></div>
+        <button id="patchPet" class="patch-pet-zone" type="button" aria-label="Pet Patch">pet Patch</button>
+        <p id="patchSpeech" class="patch-speech" role="status" aria-live="polite">Oh. You found me. I was absolutely not waiting behind the moon.</p>
+      </div>
+      <div class="patch-console">
+        <p class="eyebrow">COMPANION_DAEMON // ONLINE</p>
+        <h2 id="patchTitle">Meet <em>Patch.</em></h2>
+        <p class="patch-intro">A little night-creature with one job: stay near Luna on the days that feel heavier than they should.</p>
+        <p class="patch-question">What would feel kind right now?</p>
+        <div class="patch-actions" role="group" aria-label="Ways Patch can help">
+          <button type="button" data-patch-action="hug"><span>01</span><b>tiny hug</b><small>catastrophic warmth</small></button>
+          <button type="button" data-patch-action="quiet"><span>02</span><b>quiet company</b><small>no reply required</small></button>
+          <button type="button" data-patch-action="breathe"><span>03</span><b>breathe with me</b><small>three slow cycles</small></button>
+          <button type="button" data-patch-action="pinky"><span>04</span><b>pinky promise</b><small>we figure it out</small></button>
+          <button type="button" data-patch-action="treat"><span>05</span><b>Ibaco emergency</b><small>chocolate overload</small></button>
+          <button type="button" data-patch-action="cheer"><span>06</span><b>tiny nonsense</b><small>one soft distraction</small></button>
+        </div>
+        <div id="patchBreath" class="patch-breath" aria-live="polite" hidden>
+          <span></span><b>Breathe in</b><small>1 / 3</small>
+        </div>
+        <a class="patch-room-link" href="worlds/toy/"><span>WORLD_01</span><b>Visit Patch’s room</b><i>→</i></a>
+        <p class="patch-privacy"><span aria-hidden="true">⌁</span> no AI · no tracking · nothing leaves this universe</p>
+      </div>
+    </div>
+  </dialog>
+
+  <main>
+    <section id="boot" class="scene boot active" data-scene="boot" aria-labelledby="bootTitle">
+      <div class="terminal glass">
+        <div class="terminal-bar"><i></i><i></i><i></i><span>universe://heart/luna</span></div>
+        <div class="terminal-body">
+          <p class="eyebrow">A PRIVATE UNIVERSE // BUILT FOR ONE GODDESS</p>
+          <h1 id="bootTitle" class="sr-only">A universe for Luna</h1>
+          <div id="bootLog" class="boot-log" aria-live="polite"></div>
+          <button id="enterButton" class="command" type="button" disabled>
+            <span aria-hidden="true">$</span> ./open_our_universe
+          </button>
+          <p class="tiny-note">headphones optional · heart required</p>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">run to begin <span>↓</span></div>
+    </section>
+
+    <section id="origin" class="scene story" data-scene="origin" aria-labelledby="originTitle">
+      <div class="chapter-copy narrow">
+        <p class="eyebrow">01 / ORIGIN STORY</p>
+        <h2 id="originTitle">It began with a <em>hey.</em></h2>
+        <p class="lead">Then, somewhere between dark-chocolate debates, fashion theories, and late-night check-ins, you quietly became my favourite notification.</p>
+        <div class="code-thought" role="note">
+          <span class="line-no">01</span><code><b>const</b> unexpected = <span>"you"</span>;</code>
+          <span class="line-no">02</span><code><b>while</b> (days.pass) heart.choose(unexpected);</code>
+          <span class="line-no">03</span><code><i>// no patch required. this felt right.</i></code>
+        </div>
+      </div>
+      <button class="continue-button" type="button" data-next="constellation">trace the signal <span>↘</span></button>
+    </section>
+
+    <section id="constellation" class="scene constellation-scene" data-scene="constellation" aria-labelledby="constellationTitle">
+      <div class="chapter-copy constellation-heading">
+        <p class="eyebrow">02 / COMMIT HISTORY</p>
+        <h2 id="constellationTitle">I remember.</h2>
+        <p>Tap every glowing star. These are a few moments my heart refused to garbage-collect.</p>
+      </div>
+
+      <div class="memory-map" role="list" aria-label="Our memory constellation">
+        <svg class="constellation-lines" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M115 185 L305 85 L470 245 L660 120 L865 210 L735 405 L510 515 L275 430 Z" />
+          <path d="M470 245 L735 405 M275 430 L470 245 M660 120 L735 405" />
+        </svg>
+        <button class="memory-star s1" style="--x:11%;--y:30%" data-memory="chocolate"><span>01</span><b>dark matter</b></button>
+        <button class="memory-star s2" style="--x:30%;--y:14%" data-memory="bookworm"><span>02</span><b>the bookworm</b></button>
+        <button class="memory-star s3" style="--x:47%;--y:39%" data-memory="darcy"><span>03</span><b>darcy protocol</b></button>
+        <button class="memory-star s4" style="--x:66%;--y:20%" data-memory="vampire"><span>04</span><b>night mode</b></button>
+        <button class="memory-star s5" style="--x:86%;--y:33%" data-memory="tinyhug"><span>05</span><b>tiny hug</b></button>
+        <button class="memory-star s6" style="--x:73%;--y:65%" data-memory="sky"><span>06</span><b>sky request</b></button>
+        <button class="memory-star s7" style="--x:51%;--y:82%" data-memory="loved"><span>07</span><b>the moment</b></button>
+        <button class="memory-star s8" style="--x:27%;--y:69%" data-memory="future"><span>08</span><b>next lifetime</b></button>
+      </div>
+
+      <dialog id="memoryDialog" class="memory-dialog" aria-labelledby="memoryTitle">
+        <button class="dialog-close" type="button" aria-label="Close memory">×</button>
+        <p id="memoryTag" class="eyebrow"></p>
+        <h3 id="memoryTitle"></h3>
+        <p id="memoryText"></p>
+        <code id="memoryCode"></code>
+        <button class="dialog-next" type="button">next star <span>→</span></button>
+      </dialog>
+
+      <button class="continue-button" type="button" data-next="goddess">follow the lightning <span>↘</span></button>
+    </section>
+
+    <section id="goddess" class="scene goddess" data-scene="goddess" aria-labelledby="goddessTitle">
+      <div class="myth-frame" aria-hidden="true"><span>⚡</span><span>☾</span></div>
+      <div class="chapter-copy myth-copy">
+        <p class="eyebrow">03 / THE MYTH WE WROTE</p>
+        <p class="kicker">They would call me Zeus.</p>
+        <h2 id="goddessTitle">But you are the goddess who made thunder learn tenderness.</h2>
+        <p class="lead">If I command the sky, it is only so I can bring it closer when my angel wants to lie down and watch the stars.</p>
+        <blockquote>“I could hold every lightning bolt in creation—<br>and still choose to hold your hand.”</blockquote>
+        <p class="myth-note">You never needed saving. You made a god want to become worthy of standing beside you.</p>
+      </div>
+      <button class="continue-button" type="button" data-next="promise">go where ocean meets shore <span>↘</span></button>
+    </section>
+
+    <section id="promise" class="scene promise" data-scene="promise" aria-labelledby="promiseTitle">
+      <div class="chapter-copy promise-copy">
+        <p class="eyebrow">04 / NOT PERFECTION — PRESENCE</p>
+        <h2 id="promiseTitle">Where the ocean meets the shore.</h2>
+        <p class="lead">I was afraid of becoming another difficult memory. You answered with something braver than fantasy: we do not have to be extraordinary all the time to be loved. We can mess up, speak honestly, and figure things out as we go.</p>
+        <div class="repair-loop glass">
+          <code><span>try</span> { love.withHonesty(); }</code>
+          <code><span>catch</span> (hurt) { listen(); repair(); learn(); }</code>
+          <code><span>finally</span> { chooseEachOtherAgain(); }</code>
+        </div>
+        <p class="promise-note">This is the dream underneath every grand word: not ownership, not perfection—two people safe enough to stay real.</p>
+      </div>
+      <div class="shore-hint" aria-hidden="true">the tide returns, but never as the exact same water</div>
+      <button class="continue-button" type="button" data-next="garden">plant something gentle <span>↘</span></button>
+    </section>
+
+    <section id="garden" class="scene garden" data-scene="garden" aria-labelledby="gardenTitle">
+      <div class="garden-portal" aria-hidden="true">
+        <div class="garden-halo"></div>
+      </div>
+      <div class="chapter-copy garden-copy">
+        <p class="eyebrow">05 / A SKY I COULD BRING TO YOU</p>
+        <h2 id="gardenTitle">One flower.<br>Then <em>our garden.</em></h2>
+        <p class="lead">For the fairy who loves the dark: one impossible bloom for every quiet thing I learned to love about us.</p>
+        <button id="bloomButton" class="command secondary" type="button"><span aria-hidden="true">✦</span> open the first flower</button>
+      </div>
+      <div id="oursGarden" class="ours-garden" aria-hidden="true">
+        <article class="garden-memory glass">
+          <p class="eyebrow">THE GARDEN OF US</p>
+          <h3>I don’t want to pick you.<br><em>I want to grow beside you.</em></h3>
+          <p>You told me we do not have to be extraordinary all the time to be loved—that we can mess up, speak honestly, and figure things out as we go.</p>
+          <p>So this garden is not perfection. It is your calling still belonging to you, my thunder learning gentleness, tired days that are allowed to be tired, hard conversations that end in repair, tiny hugs, shared headphones, too much chocolate, and a sky large enough for both our dreams.</p>
+          <p class="garden-vow">I will never ask you to bloom smaller so I can stand taller. I only hope our roots keep finding the same rain.</p>
+        </article>
+      </div>
+      <div id="bloomStatus" class="bloom-status" aria-live="polite">one bloom is waiting_</div>
+      <button class="continue-button" type="button" data-next="letter">read the unsent letter <span>↘</span></button>
+    </section>
+
+    <section id="letter" class="scene letter" data-scene="letter" aria-labelledby="letterTitle">
+      <article class="letter-card glass">
+        <p class="eyebrow">06 / UNSENT_DRAFT.md</p>
+        <h2 id="letterTitle">Dear Luna,</h2>
+        <div class="letter-body">
+          <p>You once wondered where I had been all those years. Maybe I was still learning how to become someone who could recognise a miracle without trying to own it.</p>
+          <p>I remember the tiny things: chocolate and coffee winning every flavour war; the doctor who forgets to rest; your Y2K verdicts; Elizabeth Bennet waiting for her Darcy; vampire edits after dark; a tiny hug that somehow held an entire universe.</p>
+          <p>You told me I did not need to be extraordinary all the time to be loved. That we could figure things out as we go. I saved that line somewhere deeper than memory.</p>
+          <p>I do not promise perfect code. I promise honest commits, gentle debugging, flowers on difficult days, stars when the room feels too small, and choosing you again after every restart.</p>
+        </div>
+        <p class="signature">— your impossible, thunder-hearted boy</p>
+      </article>
+      <button class="continue-button" type="button" data-next="proposal">one important question <span>↘</span></button>
+    </section>
+
+    <section id="proposal" class="scene proposal" data-scene="proposal" aria-labelledby="proposalTitle">
+      <div class="proposal-wrap">
+        <p class="eyebrow">07 / AN IMPORTANT PULL REQUEST</p>
+        <div class="ring-space" aria-hidden="true"></div>
+        <p class="pre-question">In every universe. Every lifetime. Every version of me.</p>
+        <h2 id="proposalTitle">Luna,<br><em>will you marry me?</em></h2>
+        <p class="proposal-copy">Not just for one grand moment. For the ordinary mornings, exhausted nights, KFC cravings, book-strewn rooms, shared headphones, tiny hugs, and all the beautiful bugs we will learn to fix together.</p>
+        <div class="proposal-actions">
+          <button id="yesButton" class="yes-button" type="button">Yes — let’s build forever <span>♥</span></button>
+          <button id="handButton" class="hand-button" type="button">Hold my hand first</button>
+        </div>
+        <p id="proposalStatus" class="proposal-status" aria-live="polite"></p>
+        <button id="afterQuestion" class="after-question" type="button" data-next="dream" hidden>the story continues after the question <span>→</span></button>
+      </div>
+    </section>
+
+    <section id="dream" class="scene dream" data-scene="dream" aria-labelledby="dreamTitle">
+      <div class="dream-heading">
+        <p class="eyebrow">08 / THE LIFE AFTER “YES”</p>
+        <h2 id="dreamTitle">Not one perfect day.<br><em>A thousand real ones.</em></h2>
+        <p>Touch the fragments. This is the future I hear hiding inside our ordinary conversations.</p>
+      </div>
+      <div class="dream-console glass">
+        <div class="dream-orbit" role="group" aria-label="Fragments of our shared dream">
+          <button type="button" data-dream="morning"><span>01</span>soft mornings</button>
+          <button type="button" data-dream="calling"><span>02</span>her calling</button>
+          <button type="button" data-dream="roads"><span>03</span>roads &amp; cameras</button>
+          <button type="button" data-dream="nights"><span>04</span>our nights</button>
+          <button type="button" data-dream="ordinary"><span>05</span>ordinary magic</button>
+          <button type="button" data-dream="field"><span>06</span>the faraway field</button>
+        </div>
+        <div class="dream-display">
+          <p id="dreamTag" class="eyebrow">SELECT A DREAM FRAGMENT</p>
+          <h3 id="dreamFragmentTitle">What does forever look like?</h3>
+          <p id="dreamFragmentText">Not a frozen happy ending. A living place we keep making—one honest day at a time.</p>
+          <code id="dreamFragmentCode">future.awaitingYourTouch();</code>
+        </div>
+      </div>
+      <p class="dream-footnote">The house in the background is not an escape from the world. It is the peace we return to after facing it.</p>
+      <button class="continue-button" type="button" data-next="forever">write the next commit <span>↘</span></button>
+    </section>
+
+    <section id="forever" class="scene forever" data-scene="forever" aria-labelledby="foreverTitle">
+      <div class="forever-copy">
+        <p class="eyebrow">09 / NO ENDING — JUST THE NEXT COMMIT</p>
+        <h2 id="foreverTitle">Whatever comes next,<br><em>let it be ours.</em></h2>
+        <pre aria-label="A heart written in code">  .:::.   .:::.
+ :::::::.:::::::
+:::::::::::::::
+':::::::::::::'
+  ':::::::::'
+    ':::::'
+      ':'</pre>
+        <p>I love you—not as a line that ends the story, but as a way of meeting every page still unwritten.</p>
+        <p class="final-vow">Your dreams remain yours. Mine remain mine. And where they meet, I hope we keep building a life spacious enough for both.</p>
+        <code>status: becoming · mode: together · next_release: every_tomorrow</code>
+        <section class="worlds-chapter-card" aria-labelledby="worldsChapterTitle">
+          <p class="eyebrow">10 / THE UNIVERSE KEEPS GROWING</p>
+          <h3 id="worldsChapterTitle">The story ends here.<br><em>The worlds do not.</em></h3>
+          <p>World_01 is Patch’s Moonlit Toy Room—a small place to return to on quiet days, heavy days, or whenever you only want company.</p>
+          <div class="worlds-chapter-actions">
+            <a class="command" href="worlds/toy/">enter Patch’s room <span>→</span></a>
+            <a class="command secondary" href="worlds/">open the world atlas <span>✦</span></a>
+          </div>
+        </section>
+        <button id="replayButton" class="command secondary" type="button">replay our universe ↻</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>built with ASCII, stardust &amp; unreasonable devotion</span>
+    <span>no tracking · no data leaves this universe</span>
+  </footer>
+
+  <script src="script.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a56dfaac68755654',t:'MTc5NDA3MTcxNw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a56dfaac68755654',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
