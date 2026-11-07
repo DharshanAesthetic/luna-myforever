@@ -1340,7 +1340,7 @@ body.toy-world {
   object-fit: fill;
   user-select: none;
   pointer-events: none;
-  transition: opacity 120ms linear;
+  transition: opacity 165ms cubic-bezier(.22,.72,.18,1);
   will-change: transform,opacity;
 }
 .patch-sprite-frame.is-visible { opacity: 1; }

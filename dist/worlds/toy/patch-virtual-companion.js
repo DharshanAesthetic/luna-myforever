@@ -1,16 +1,16 @@
 // Complete-body sprite frames keep Patch coherent like a lightweight desktop pet.
 const ACTIONS = {
-  idle:     { atlas:"primary", duration:4.8, loop:true,  heart:.12, frames:[0,1,2,3,2,1] },
-  walk:     { atlas:"primary", duration:2.8, loop:false, heart:.08, frames:[0,14,15,14,0] },
-  quiet:    { atlas:"primary", duration:5.2, loop:true,  heart:.12, frames:[0,12,13,12] },
-  sleep:    { atlas:"primary", duration:6.4, loop:true,  heart:.08, frames:[12,13,13,12] },
-  hug:      { atlas:"primary", duration:5.5, loop:false, heart:1,   frames:[0,4,5,6,7,7,6,5,4,0] },
-  mischief: { atlas:"primary", duration:3.5, loop:false, heart:.2,  frames:[0,14,15,14,15,14,0] },
-  cooking:  { atlas:"primary", duration:8,   loop:false, heart:.35, frames:[0,8,9,10,11,11,10,9,8,0] },
-  flutter:  { atlas:"comfort", duration:3.8, loop:false, heart:.2,  frames:[12,13,14,15,14,13,12,0] },
-  breathe:  { atlas:"comfort", duration:8,   loop:true,  heart:.55, frames:[8,9,10,11,10,9,8] },
-  pet:      { atlas:"comfort", duration:3.2, loop:false, heart:.7,  frames:[4,5,6,7,6,5,4,0] },
-  pinky:    { atlas:"comfort", duration:5.2, loop:false, heart:.85, frames:[0,1,2,3,3,2,1,0] }
+  idle:     { atlas:"primary", duration:4.8, loop:true,  heart:.12, frames:[0,1,2,3,2,1],       weights:[1.35,.8,.55,1.2,.55,.8] },
+  walk:     { atlas:"primary", duration:2.8, loop:false, heart:.08, frames:[0,14,15,14,0],       weights:[.7,.8,1,.8,.9] },
+  quiet:    { atlas:"primary", duration:5.2, loop:true,  heart:.12, frames:[0,12,13,12],         weights:[.7,1.2,2.2,1.2] },
+  sleep:    { atlas:"primary", duration:6.4, loop:true,  heart:.08, frames:[12,13,13,12],        weights:[1.1,2.5,2.5,1.1] },
+  hug:      { atlas:"primary", duration:5.5, loop:false, heart:1,   frames:[0,4,5,6,7,7,6,5,4,0],weights:[.6,.55,.6,.7,1.45,1.2,.65,.55,.5,.7] },
+  mischief: { atlas:"primary", duration:3.5, loop:false, heart:.2,  frames:[0,14,15,14,15,14,0], weights:[.65,.55,.7,.45,.65,.55,.75] },
+  cooking:  { atlas:"primary", duration:8,   loop:false, heart:.35, frames:[0,8,9,10,11,11,10,9,8,0],weights:[.8,.65,.7,.8,1.55,1.3,.75,.65,.6,.85] },
+  flutter:  { atlas:"comfort", duration:3.8, loop:false, heart:.2,  frames:[12,13,14,15,14,13,12,0],weights:[.6,.55,.65,1.05,.65,.55,.5,.7] },
+  breathe:  { atlas:"comfort", duration:8,   loop:true,  heart:.55, frames:[8,9,10,11,10,9,8],  weights:[1.2,1,1.1,2,1.1,1,1.2] },
+  pet:      { atlas:"comfort", duration:3.2, loop:false, heart:.7,  frames:[4,5,6,7,6,5,4,0],    weights:[.6,.55,.6,1.1,.6,.55,.5,.7] },
+  pinky:    { atlas:"comfort", duration:5.2, loop:false, heart:.85, frames:[0,1,2,3,3,2,1,0],    weights:[.65,.6,.7,1.35,1.1,.65,.55,.7] }
 };
 
 const DIALOGUE = {
@@ -76,7 +76,15 @@ export class PatchVirtualCompanion {
     const action=ACTIONS[this.state]||ACTIONS.idle;
     const elapsed=Math.max(0,(timestamp-this.startedAt)/1000);
     const progress=action.loop?(elapsed%action.duration)/action.duration:Math.min(1,elapsed/action.duration);
-    const index=Math.min(action.frames.length-1,Math.floor(progress*action.frames.length));
+    const weights=action.weights??action.frames.map(()=>1);
+    const totalWeight=weights.reduce((sum,weight)=>sum+weight,0);
+    const weightedTime=Math.min(totalWeight-.0001,progress*totalWeight);
+    let index=0;
+    let cursor=weights[0];
+    while (index<weights.length-1&&weightedTime>=cursor) {
+      index+=1;
+      cursor+=weights[index];
+    }
     const spriteFrame=action.frames[index];
     if (spriteFrame!==this.frame||action.atlas!==this.currentAtlas) this.applyFrame(spriteFrame,index,progress,action.atlas);
     if (!action.loop&&elapsed>=action.duration) this.play("idle");
