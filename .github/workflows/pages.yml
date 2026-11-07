@@ -1,4 +1,5 @@
 name: Publish Luna to GitHub Pages
+# Verified source snapshot: 55984482527ce14dd444454f743742aa5b575391
 
 on:
   workflow_dispatch:
