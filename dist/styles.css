@@ -54,7 +54,7 @@ body.scene-shifting .scene-flare { opacity: 1; }
   box-shadow: 0 14px 44px rgba(0,0,0,.2); backdrop-filter: blur(20px) saturate(130%);
   font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
 }
-.brand { color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 9px; }
+.brand { min-height: 32px; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 9px; }
 .brand small { color: #746d79; font-size: 8px; font-weight: 400; letter-spacing: .14em; }
 .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--rose); box-shadow: 0 0 15px var(--rose); animation: pulse 2s infinite; }
 .hud-actions { display: flex; align-items: center; gap: 18px; color: var(--muted); }
