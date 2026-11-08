@@ -130,45 +130,35 @@ body.guided .guide-star { opacity: 1; transform: translate(-50%,-50%) scale(1); 
 /* PATCH // Luna's tiny guardian daemon */
 .patch-companion {
   position: fixed; right: max(18px, 2.4vw); bottom: 18px; z-index: 56;
-  display: grid; justify-items: end; gap: 12px; opacity: 0; pointer-events: none;
+  display: grid; justify-items: end; gap: 9px; opacity: 0; pointer-events: none;
   transform: translateY(18px); transition: opacity .55s var(--ease), transform .55s var(--ease);
 }
 .patch-companion.awake { opacity: 1; pointer-events: auto; transform: none; }
 .patch-summon {
-  min-height: 96px; display: flex; align-items: center; gap: 8px; padding: 5px;
-  border: 1px solid rgba(232,144,172,.22); border-radius: 29px; color: var(--ink);
-  background: linear-gradient(110deg,rgba(49,17,38,.34),rgba(8,7,14,.86) 44%); box-shadow: 0 18px 62px rgba(0,0,0,.46), 0 0 32px rgba(126,35,72,.09);
+  min-width: 174px; min-height: 76px; display: flex; align-items: center; gap: 9px; padding: 5px 13px 5px 5px;
+  border: 1px solid rgba(232,144,172,.25); border-radius: 28px; color: var(--ink);
+  background: linear-gradient(110deg,rgba(49,17,38,.5),rgba(8,7,14,.94) 48%); box-shadow: 0 18px 62px rgba(0,0,0,.5), 0 0 32px rgba(126,35,72,.12);
   backdrop-filter: blur(22px) saturate(130%); cursor: pointer;
   transition: transform .25s var(--ease), border-color .25s ease, box-shadow .25s ease, background-color .25s ease;
 }
 .patch-summon:hover { transform: translateY(-3px); border-color: rgba(128,212,210,.38); background: rgba(13,10,19,.94); box-shadow: 0 22px 72px rgba(0,0,0,.52), 0 0 35px rgba(128,212,210,.09); }
 .patch-summon:active { transform: translateY(-1px) scale(.97); }
-.patch-summon > span:last-child { position: absolute; right: 100%; width: 142px; margin-right: 10px; display: grid; gap: 2px; padding: 10px 12px; border: 1px solid rgba(232,144,172,.16); border-radius: 14px; background: rgba(8,7,14,.88); text-align: left; opacity: 0; transform: translateX(8px); pointer-events: none; transition: opacity .25s ease, transform .25s var(--ease); }
-.patch-summon:hover > span:last-child,
-.patch-summon:focus-visible > span:last-child { opacity: 1; transform: none; }
-.patch-summon > span:last-child b { font-size: 9px; font-weight: 400; letter-spacing: .16em; }
-.patch-summon > span:last-child small { color: #857c89; font: 12px/1 var(--serif); }
-.patch-mini { position: relative; width: 84px; height: 84px; flex: 0 0 auto; overflow: hidden; border-radius: 22px; background: radial-gradient(circle at 50% 52%,rgba(126,35,72,.3),rgba(8,7,14,.16) 66%,transparent 72%); filter: drop-shadow(0 8px 8px rgba(0,0,0,.42)); animation: patchMiniBreathe 3.8s ease-in-out infinite; }
+.patch-summon-copy { display: grid; gap: 5px; min-width: 82px; text-align: left; }
+.patch-summon-copy b { color: #f0dce5; font-size: 8px; font-weight: 500; letter-spacing: .16em; }
+.patch-summon-copy small { color: #918794; font: 13px/1.05 var(--serif); }
+.patch-mini { position: relative; width: 64px; height: 64px; flex: 0 0 auto; overflow: hidden; border-radius: 19px; background: radial-gradient(circle at 50% 52%,rgba(126,35,72,.32),rgba(8,7,14,.16) 66%,transparent 72%); filter: drop-shadow(0 8px 8px rgba(0,0,0,.42)); animation: patchMiniBreathe 3.8s ease-in-out infinite; }
 .patch-mini::after { content: ""; position: absolute; z-index: -1; left: 17%; right: 17%; bottom: 4%; height: 9%; border-radius: 50%; background: radial-gradient(ellipse,rgba(0,0,0,.7),transparent 72%); filter: blur(3px); }
-.patch-mini img { position: absolute; left: 0; top: 0; width: 500%; height: 500%; max-width: none; object-fit: fill; transform: translate3d(-2.5%,-2.5%,0); transition: transform .18s steps(1,end); }
-.patch-companion[data-patch-state="wave"] .patch-mini img { transform: translate3d(-77.5%,-2.5%,0); }
-.patch-companion[data-patch-state="cheer"] .patch-mini img { transform: translate3d(-77.5%,-27.5%,0); }
-.patch-companion[data-patch-state="breathe"] .patch-mini img { transform: translate3d(-52.5%,-52.5%,0); }
-.patch-companion[data-patch-state="quiet"] .patch-mini img { transform: translate3d(-52.5%,-77.5%,0); }
-.patch-companion[data-patch-state="blink"] .patch-mini i::before,
-.patch-companion[data-patch-state="blink"] .patch-mini i::after,
-.patch-companion[data-patch-state="quiet"] .patch-mini i::before,
-.patch-companion[data-patch-state="quiet"] .patch-mini i::after { height: 1px; top: 20px; }
 .patch-companion[data-patch-state="wave"] .patch-mini { animation: patchMiniWave .5s var(--ease) 4 alternate; }
 .patch-companion[data-patch-state="cheer"] .patch-mini { animation: patchMiniHop .55s var(--ease) 3; }
 .patch-companion[data-patch-state="breathe"] .patch-mini { animation: patchMiniCalm 8s ease-in-out infinite; }
 .patch-companion[data-patch-state="quiet"] .patch-mini { animation: patchMiniSleep 5s ease-in-out infinite; }
 
 .patch-whisper {
-  width: min(300px, calc(100vw - 36px)); padding: 13px 16px; border: 1px solid rgba(128,212,210,.18);
-  border-radius: 18px 18px 4px 18px; color: #c8c0cb; background: rgba(8,7,14,.9);
+  position: relative; width: min(286px, calc(100vw - 36px)); padding: 13px 16px; border: 1px solid rgba(128,212,210,.2);
+  border-radius: 18px 18px 5px 18px; color: #d8d0da; background: rgba(8,7,14,.94);
   box-shadow: 0 16px 58px rgba(0,0,0,.45); backdrop-filter: blur(20px); animation: patchWhisperIn .45s var(--ease) both;
 }
+.patch-whisper::after { content: ""; position: absolute; right: 27px; bottom: -7px; width: 12px; height: 12px; border-right: 1px solid rgba(128,212,210,.2); border-bottom: 1px solid rgba(128,212,210,.2); background: #090810; transform: rotate(45deg); }
 .patch-whisper[hidden] { display: none; }
 .patch-whisper p { margin: 0; font: 15px/1.45 var(--serif); text-wrap: pretty; }
 
@@ -185,7 +175,18 @@ body.guided .guide-star { opacity: 1; transform: translate(-50%,-50%) scale(1); 
 .patch-moon-halo { position: absolute; left: 50%; top: 46%; width: min(36vw,380px); aspect-ratio: 1; transform: translate(-50%,-50%); border: 1px solid rgba(128,212,210,.11); border-radius: 50%; box-shadow: inset 0 0 65px rgba(128,212,210,.035), 0 0 90px rgba(232,144,172,.04); }
 .patch-moon-halo::before, .patch-moon-halo::after { content: ""; position: absolute; inset: 9%; border: 1px dashed rgba(232,144,172,.12); border-radius: 50%; animation: patchOrbit 28s linear infinite; }
 .patch-moon-halo::after { inset: 22%; border-color: rgba(216,180,111,.12); animation-duration: 19s; animation-direction: reverse; }
-.patch-model-mount { position: relative; z-index: 2; width: min(390px, 87%); margin-top: -18px; cursor: pointer; }
+.patch-model-mount { position: relative; z-index: 2; width: min(390px, 87%); aspect-ratio: 1; margin-top: -18px; cursor: pointer; }
+.patch-render { position: relative; display: block; width: 100%; height: 100%; }
+.patch-render-master,
+.patch-render-atlas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.patch-render-master { z-index: 2; object-fit: contain; opacity: 0; transition: opacity .18s ease; }
+.patch-render-atlas { z-index: 1; overflow: hidden; opacity: 1; transition: opacity .18s ease; }
+.patch-render-sheet { position: absolute; left: 0; top: 0; width: 400%; height: 400%; max-width: none; object-fit: fill; opacity: 0; pointer-events: none; user-select: none; }
+.patch-render-sheet.is-active { opacity: 1; }
+.patch-render[data-patch-render="den"][data-action="idle"] .patch-render-master { opacity: 1; }
+.patch-render[data-patch-render="den"][data-action="idle"] .patch-render-atlas { opacity: 0; }
+.patch-render[data-patch-render="mini"] .patch-render-master { display: none; }
+.patch-mini .patch-render { position: absolute; inset: 0; }
 .patch-avatar-art { display: block; width: 100%; height: auto; filter: drop-shadow(0 24px 34px rgba(0,0,0,.4)); transform-origin: 50% 88%; animation: patchBreathe 4.4s ease-in-out infinite; }
 .patch-puppet { display: block; width: 100%; height: auto; overflow: visible; animation: patchBreathe 4.4s ease-in-out infinite; transform-origin: 50% 88%; }
 .patch-puppet .patch-ear, .patch-puppet .patch-wing, .patch-puppet .patch-arm, .patch-puppet .patch-head, .patch-puppet .patch-body { transform-box: fill-box; }
@@ -210,8 +211,8 @@ body.guided .guide-star { opacity: 1; transform: translate(-50%,-50%) scale(1); 
 .patch-actions button:active { transform: scale(.97); }
 .patch-actions button.active { color: var(--ink); border-color: rgba(128,212,210,.3); background: rgba(128,212,210,.055); }
 .patch-actions button span { grid-row: 1 / 3; align-self: center; color: #5f5664; font-size: 8px; font-variant-numeric: tabular-nums; }
-.patch-actions button b { font-size: 9px; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; }
-.patch-actions button small { color: #716977; font: 12px/1.1 var(--serif); }
+.patch-actions button b { color: #c8bdca; font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+.patch-actions button small { color: #8d8390; font: 13px/1.1 var(--serif); }
 .patch-breath { position: relative; min-height: 64px; display: grid; grid-template-columns: 46px 1fr auto; align-items: center; gap: 12px; margin-top: 12px; padding: 9px 14px; border: 1px solid rgba(128,212,210,.16); border-radius: 15px; background: rgba(128,212,210,.035); }
 .patch-breath[hidden] { display: none; }
 .patch-breath > span { width: 36px; height: 36px; border: 1px solid var(--cyan); border-radius: 50%; box-shadow: 0 0 25px rgba(128,212,210,.12); animation: patchBreathOrb 8s ease-in-out infinite; }
@@ -534,11 +535,6 @@ h2 em { color: var(--rose); font-weight: 400; }
 .worlds-chapter-link span { grid-column:1/-1; color:var(--rose); font-size:7px; letter-spacing:.13em; }
 .worlds-chapter-link b { font:400 20px/1.1 var(--serif); }
 .worlds-chapter-link i { align-self:center; color:var(--cyan); font-size:8px; font-style:normal; letter-spacing:.08em; text-transform:uppercase; }
-.worlds-chapter-link { width:min(560px,100%); display:grid; grid-template-columns:1fr auto; gap:7px 18px; margin:24px auto 18px; padding:18px 20px; border:1px solid rgba(232,144,172,.24); border-radius:18px; color:var(--ink); background:linear-gradient(100deg,rgba(232,144,172,.07),rgba(128,212,210,.035)); text-decoration:none; text-align:left; transition:transform .3s var(--ease),border-color .3s ease,box-shadow .3s ease; }
-.worlds-chapter-link:hover { transform:translateY(-3px); border-color:rgba(128,212,210,.38); box-shadow:0 18px 55px rgba(0,0,0,.28); }
-.worlds-chapter-link span { grid-column:1/-1; color:var(--rose); font-size:7px; letter-spacing:.13em; }
-.worlds-chapter-link b { font:400 20px/1.1 var(--serif); }
-.worlds-chapter-link i { align-self:center; color:var(--cyan); font-size:8px; font-style:normal; letter-spacing:.08em; text-transform:uppercase; }
 .forever h2 { color: var(--rose); font-size: clamp(48px,8vw,100px); }
 .forever h2 em { color: var(--gold); }
 .forever pre { color: var(--rose); text-shadow: 0 0 20px var(--wine); font-size: clamp(13px, 2.8vw, 24px); line-height: 1.08; }
@@ -648,9 +644,9 @@ body.celebrating .hud { opacity: 0; transition: 1s; }
   footer { flex-direction: column; text-align: center; }
   .ours-garden { inset: 80px 10px 100px; }
   .garden-memory { width: min(78vw, 420px); min-height: 250px; padding: 28px; }
-  .patch-companion { right: 12px; bottom: 88px; }
-  .patch-summon { width: 72px; min-height: 72px; padding: 2px; border-radius: 22px; }
-  .patch-summon > span:last-child { display: none; }
+  .patch-companion { right: 10px; bottom: 82px; }
+  .patch-summon { min-width: 0; width: 68px; min-height: 68px; padding: 2px; border-radius: 21px; }
+  .patch-summon-copy { display: none; }
   .patch-mini { width: 66px; height: 66px; }
   .patch-whisper { width: min(270px, calc(100vw - 28px)); font-size: 13px; }
   .terminal { width: 100%; }
