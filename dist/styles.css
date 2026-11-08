@@ -16,7 +16,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 78px; background: var(--bg); }
+html { max-width: 100%; overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 78px; background: var(--bg); }
 body {
   margin: 0;
   color: var(--ink);
