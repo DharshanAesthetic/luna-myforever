@@ -170,6 +170,13 @@ reduced-motion.
   equivalents. Browser transfer at 1366×768 fell from about 17.4 MB to 4.3 MB,
   root transfer fell from about 2.1 MB to 0.66 MB, and measured CLS remains
   effectively zero. Duplicate atlas elements now decode each source only once.
+- The ECC visual/performance build is live on GitHub Pages from public content
+  commit `b7d7275acd1a2efe130704f750692fda6e5d195c`. Live QA reproduces the exact
+  four laptop anchor boxes, reports zero failed responses or console errors,
+  zero axe WCAG A/AA violations, no sub-24px targets, all nine object reactions,
+  active spring physics, a complete keyboard path, and a stable reduced-motion
+  frame. Public Toy World transfer measures about 4.2 MB with effectively zero
+  CLS and no long tasks in the 1366×768 audit.
 - Sites production version 7 is live at
   `https://luna-in-every-tomorrow.plushcuckoo1.chatgpt.site/` from exact source
   commit `55984482527ce14dd444454f743742aa5b575391`.
