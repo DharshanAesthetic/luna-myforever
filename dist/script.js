@@ -584,7 +584,86 @@
   let patchGreetingShown = false;
   const patchSeenScenes = new Set();
 
-  document.querySelector("#patchModelMount").innerHTML = '<img class="patch-avatar-art" src="assets/patch-avatar-v2.webp" alt="Patch, a tiny stitched bat-bear guardian">';
+  const PATCH_RENDER_ACTIONS = {
+    idle:    { atlas: "primary", frames: [0,1,2,3,2,1], duration: 4800, loop: true },
+    blink:   { atlas: "primary", frames: [0,1,0], duration: 1300, loop: false },
+    wave:    { atlas: "primary", frames: [0,14,15,14,15,14,0], duration: 2600, loop: false },
+    cheer:   { atlas: "primary", frames: [0,14,15,14,15,14,0], duration: 2600, loop: false },
+    quiet:   { atlas: "primary", frames: [12,13,13,12], duration: 5200, loop: true },
+    hug:     { atlas: "primary", frames: [0,4,5,6,7,7,6,5,4,0], duration: 5200, loop: false },
+    treat:   { atlas: "primary", frames: [0,8,9,10,11,11,10,9,8,0], duration: 6800, loop: false },
+    breathe: { atlas: "comfort", frames: [8,9,10,11,10,9,8], duration: 8000, loop: true },
+    pinky:   { atlas: "comfort", frames: [0,1,2,3,3,2,1,0], duration: 6200, loop: false },
+    pet:     { atlas: "comfort", frames: [4,5,6,7,6,5,4,0], duration: 3400, loop: false },
+  };
+
+  class PatchFrameRenderer {
+    constructor(node, stateHost) {
+      this.node = node;
+      this.stateHost = stateHost;
+      this.sheets = Object.fromEntries([...node.querySelectorAll("[data-patch-atlas]")].map(sheet => [sheet.dataset.patchAtlas, sheet]));
+      this.action = "idle";
+      this.startedAt = performance.now();
+      this.frame = -1;
+      this.raf = 0;
+      this.visible = !document.hidden;
+      this.fps = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4 ? 6 : 10;
+      this.lastPaint = 0;
+      this.observer = new MutationObserver(() => this.setAction(stateHost.dataset.patchState || "idle"));
+      this.observer.observe(stateHost, { attributes: true, attributeFilter: ["data-patch-state"] });
+      this.onVisibility = () => {
+        this.visible = !document.hidden;
+        if (this.visible && !reduceMotion && !this.raf) this.raf = requestAnimationFrame(time => this.render(time));
+      };
+      document.addEventListener("visibilitychange", this.onVisibility);
+      this.setAction(stateHost.dataset.patchState || "idle", true);
+      if (!reduceMotion) this.raf = requestAnimationFrame(time => this.render(time));
+    }
+
+    setAction(action, initial = false) {
+      const next = PATCH_RENDER_ACTIONS[action] ? action : "idle";
+      if (!initial && next === this.action) return;
+      this.action = next;
+      this.node.dataset.action = next;
+      this.startedAt = performance.now();
+      this.frame = -1;
+      if (reduceMotion) {
+        const frames = PATCH_RENDER_ACTIONS[next].frames;
+        this.paint(frames[Math.floor(frames.length / 2)], PATCH_RENDER_ACTIONS[next].atlas);
+      }
+    }
+
+    paint(frame, atlas) {
+      if (frame === this.frame && this.node.dataset.atlas === atlas) return;
+      this.frame = frame;
+      this.node.dataset.atlas = atlas;
+      const column = frame % 4;
+      const row = Math.floor(frame / 4);
+      Object.entries(this.sheets).forEach(([name, sheet]) => {
+        sheet.classList.toggle("is-active", name === atlas);
+        if (name === atlas) sheet.style.transform = `translate3d(${-column * 25}%,${-row * 25}%,0)`;
+      });
+    }
+
+    render(time) {
+      this.raf = 0;
+      if (!this.visible || reduceMotion) return;
+      if (time - this.lastPaint >= 1000 / this.fps) {
+        const action = PATCH_RENDER_ACTIONS[this.action] || PATCH_RENDER_ACTIONS.idle;
+        const elapsed = Math.max(0, time - this.startedAt);
+        const progress = action.loop ? (elapsed % action.duration) / action.duration : Math.min(1, elapsed / action.duration);
+        const index = Math.min(action.frames.length - 1, Math.floor(progress * action.frames.length));
+        this.paint(action.frames[index], action.atlas);
+        this.lastPaint = time;
+      }
+      this.raf = requestAnimationFrame(next => this.render(next));
+    }
+  }
+
+  const patchRenderers = [
+    new PatchFrameRenderer(document.querySelector('[data-patch-render="mini"]'), patchCompanion),
+    new PatchFrameRenderer(document.querySelector('[data-patch-render="den"]'), patchDen),
+  ];
 
   function clearPatchAction() {
     clearTimeout(patchActionTimer);
@@ -894,3 +973,4 @@
   addEventListener("pointermove", e => { state.mouseX = e.clientX / innerWidth - .5; state.mouseY = e.clientY / innerHeight - .5; }, { passive: true });
   resize(); startRendering();
 })();
+
