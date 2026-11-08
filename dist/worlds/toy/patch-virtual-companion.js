@@ -41,7 +41,10 @@ export class PatchVirtualCompanion {
   }
 
   async load() {
-    await Promise.all(this.sprites.map(sprite=>sprite.decode?.().catch(()=>{})));
+    // Decode each atlas source once. The duplicate layers support atomic pose
+    // swaps; decoding all four elements wastes startup work.
+    const uniqueAtlasSprites=[...new Map(this.sprites.map(sprite=>[sprite.currentSrc||sprite.src,sprite])).values()];
+    await Promise.all(uniqueAtlasSprites.map(sprite=>sprite.decode?.().catch(()=>{})));
     this.playing=true;
     this.startedAt=performance.now();
     this.onReady();
@@ -112,3 +115,4 @@ export class PatchVirtualCompanion {
 }
 
 export {ACTIONS as PATCH_ACTIONS,DIALOGUE as PATCH_DIALOGUE};
+

@@ -7,6 +7,9 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23100812'/%3E%3Cpath d='M32 48C12 36 16 20 25 20c5 0 7 4 7 4s2-4 7-4c9 0 13 16-7 28Z' fill='%23df7c9f'/%3E%3C/svg%3E">
   <title>Patch's Moonlit Room — Luna's Universe</title>
   <meta name="description" content="Patch, Luna's tiny guardian daemon, lives in a moonlit room made for quiet company, tiny hugs, and difficult days.">
+  <link rel="preload" as="image" href="assets/room-architecture-v1.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/patch-master.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/toys/toy-family-v2.webp" type="image/webp">
   <link rel="stylesheet" href="../../styles.css">
   <link rel="stylesheet" href="toy.css">
 </head>
@@ -25,7 +28,7 @@
 
       <div class="cinema-world" id="cinemaWorld">
 
-      <img class="architecture" src="assets/room-architecture-v1.png" alt="" draggable="false">
+      <img class="architecture" src="assets/room-architecture-v1.webp" alt="" draggable="false" fetchpriority="high" decoding="async">
       <div class="clouds clouds-a" aria-hidden="true"></div>
       <div class="clouds clouds-b" aria-hidden="true"></div>
       <div class="moon-bloom" aria-hidden="true"></div>
@@ -34,7 +37,7 @@
       <div class="rug-constellation" id="rugConstellation" aria-hidden="true"></div>
 
       <div class="toy-family" id="toyFamily" aria-label="Luna's plush family">
-        <img class="toy-family-art" src="assets/toys/toy-family-v2.png" alt="Luna's five-member plush family">
+        <img class="toy-family-art" src="assets/toys/toy-family-v2.webp" alt="Luna's five-member plush family" decoding="async">
         <div class="toy-family-glow" aria-hidden="true"></div>
         <button class="toy-hotspot blue" data-object="blue" aria-label="Visit Blue Guardian"><span></span></button>
         <button class="toy-hotspot listener" data-object="listener" aria-label="Visit Soft-Eared Listener"><span></span></button>
@@ -44,7 +47,7 @@
       </div>
 
       <button class="room-object carousel" data-object="carousel" aria-label="Play the carousel music box">
-        <img src="assets/props/carousel-v2.png" alt="Moon carousel music box">
+        <img src="assets/props/carousel-v2.webp" alt="Moon carousel music box" decoding="async">
         <span class="music-notes" aria-hidden="true"></span>
       </button>
 
@@ -54,12 +57,12 @@
       </button>
 
       <button class="room-object sundae-lamp" data-object="lamp" aria-label="Toggle the cherry sundae nightlight">
-        <img src="assets/props/sundae-lamp-v2.png" alt="Cherry sundae dessert lamp">
+        <img src="assets/props/sundae-lamp-v2.webp" alt="Cherry sundae dessert lamp" decoding="async">
         <span class="lamp-aura" aria-hidden="true"></span>
       </button>
 
       <button class="room-object quiet-chair" data-object="cat" aria-label="Visit the quiet chair and Night Cat">
-        <img src="assets/props/quiet-chair-cat.png" alt="Wine velvet chair with Night Cat curled on its arm">
+        <img src="assets/props/quiet-chair-cat.webp" alt="Wine velvet chair with Night Cat curled on its arm" decoding="async">
         <span class="purr-rings" aria-hidden="true"></span>
       </button>
 
@@ -72,12 +75,13 @@
 
       <div class="patch-home" id="patchHome" data-patch-state="idle">
         <div class="patch-halo" aria-hidden="true"></div>
-        <div class="patch-rig" id="patchRig" role="img" aria-label="Patch, Luna's animated guardian daemon plush">
+        <div class="patch-rig" id="patchRig" data-action="idle" role="img" aria-label="Patch, Luna's animated guardian daemon plush">
+          <img class="patch-master-frame" src="assets/patch-master.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
           <span class="patch-sprite" aria-hidden="true">
-            <img class="patch-sprite-frame is-visible" data-sprite-atlas="primary" src="assets/patch-sprite-atlas-v1.png" alt="">
-            <img class="patch-sprite-frame" data-sprite-atlas="primary" src="assets/patch-sprite-atlas-v1.png" alt="">
-            <img class="patch-sprite-frame" data-sprite-atlas="comfort" src="assets/patch-sprite-atlas-v2.png" alt="">
-            <img class="patch-sprite-frame" data-sprite-atlas="comfort" src="assets/patch-sprite-atlas-v2.png" alt="">
+            <img class="patch-sprite-frame is-visible" data-sprite-atlas="primary" src="assets/patch-sprite-atlas-v1.webp" alt="">
+            <img class="patch-sprite-frame" data-sprite-atlas="primary" src="assets/patch-sprite-atlas-v1.webp" alt="">
+            <img class="patch-sprite-frame" data-sprite-atlas="comfort" src="assets/patch-sprite-atlas-v2.webp" alt="">
+            <img class="patch-sprite-frame" data-sprite-atlas="comfort" src="assets/patch-sprite-atlas-v2.webp" alt="">
           </span>
           <span class="patch-heart-core" aria-hidden="true"></span>
           <span class="patch-dream-orbit" aria-hidden="true"></span>
@@ -97,7 +101,7 @@
         <span></span><b>Breathe in</b><small>1 / 3</small>
       </div>
 
-      <img class="cinematic-foreground" src="assets/cinematic-foreground-v1.png" alt="" aria-hidden="true" draggable="false">
+      <img class="cinematic-foreground" src="assets/cinematic-foreground-v1.webp" alt="" aria-hidden="true" draggable="false" decoding="async">
 
       </div>
 
@@ -141,3 +145,4 @@
   <script type="module" src="toy.js"></script>
 </body>
 </html>
+
