@@ -84,8 +84,16 @@
       <p id="patchWhisperText">I’m here. No reply required.</p>
     </div>
     <button id="patchSummon" class="patch-summon" type="button" aria-controls="patchDen" aria-expanded="false">
-      <span class="patch-mini" aria-hidden="true"><img src="worlds/toy/assets/patch-sprite-atlas-v2.webp" alt="" decoding="async"></span>
-      <span><b>PATCH</b><small>tiny guardian daemon</small></span>
+      <span class="patch-mini" aria-hidden="true">
+        <span class="patch-render" data-patch-render="mini" data-action="idle">
+          <img class="patch-render-master" src="worlds/toy/assets/patch-master.webp" alt="" decoding="async">
+          <span class="patch-render-atlas">
+            <img class="patch-render-sheet is-active" data-patch-atlas="primary" src="worlds/toy/assets/patch-sprite-atlas-v1.webp" alt="" decoding="async">
+            <img class="patch-render-sheet" data-patch-atlas="comfort" src="worlds/toy/assets/patch-sprite-atlas-v2.webp" alt="" decoding="async">
+          </span>
+        </span>
+      </span>
+      <span class="patch-summon-copy"><b>PATCH // HERE</b><small>tap for company</small></span>
     </button>
   </section>
 
@@ -94,7 +102,15 @@
     <div class="patch-den-grid">
       <div class="patch-stage" aria-label="Interactive Patch puppet">
         <div class="patch-moon-halo" aria-hidden="true"></div>
-        <div id="patchModelMount" class="patch-model-mount"></div>
+        <div id="patchModelMount" class="patch-model-mount">
+          <span class="patch-render" data-patch-render="den" data-action="idle" aria-hidden="true">
+            <img class="patch-render-master" src="worlds/toy/assets/patch-master.webp" alt="" decoding="async">
+            <span class="patch-render-atlas">
+              <img class="patch-render-sheet is-active" data-patch-atlas="primary" src="worlds/toy/assets/patch-sprite-atlas-v1.webp" alt="" decoding="async">
+              <img class="patch-render-sheet" data-patch-atlas="comfort" src="worlds/toy/assets/patch-sprite-atlas-v2.webp" alt="" decoding="async">
+            </span>
+          </span>
+        </div>
         <button id="patchPet" class="patch-pet-zone" type="button" aria-label="Pet Patch">pet Patch</button>
         <p id="patchSpeech" class="patch-speech" role="status" aria-live="polite">Oh. You found me. I was absolutely not waiting behind the moon.</p>
       </div>
