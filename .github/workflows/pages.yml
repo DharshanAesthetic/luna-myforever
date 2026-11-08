@@ -1,4 +1,5 @@
 name: Publish Luna to GitHub Pages
+# Production source: checked-in dist, aligned 2026-11-08
 
 on:
   workflow_dispatch:
@@ -35,4 +36,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
