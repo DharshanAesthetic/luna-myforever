@@ -249,20 +249,17 @@ The project is not complete until all are true:
 
 ## Immediate next work
 
-1. Preserve Toy World v6 as one physically coherent scene: intrinsic aspect
-   ratios, surface anchors, lighting integration, correct occlusion, contact
-   shadows, depth parallax, spring settling, press weight, and object reactions.
-2. Treat 1366×768, 1440×900, 1536×864, and 1584×1230 as the primary laptop
-   acceptance breakpoints. Keep portrait usable, but do not let it dictate the
-   laptop composition.
-3. Keep the message panel steadier than physical props, highly legible, and clear
-   of the lamp at every laptop breakpoint. Preserve reduced-motion and low-end
-   device gates for all non-essential scene physics.
-4. Make Toy World a prominent Chapter 10 gateway after the main vow, with direct
-   entrances to Patch's room and the World Atlas.
-5. Publish the ECC visual/performance pass to `DharshanAesthetic/luna-myforever`,
-   run the GitHub Pages workflow, and verify the public URL with screenshots,
-   interactions, console/network checks, axe, keyboard focus, and reduced-motion.
-6. Keep this goal active until the public Pages build is verified and the user
+1. Publish the unified Patch companion pass: the persistent launcher and modal
+   now share the Toy World full-body atlases instead of using a mis-cropped 5×5
+   sprite assumption and a separate static portrait.
+2. Verify distinct live frame motion for idle, hug, quiet, breathe, promise,
+   treat, cheer, and pet states; pause animation in hidden tabs and cap frame
+   rate on lower-end devices.
+3. Preserve Toy World v6 as one physically coherent scene at 1366×768,
+   1440×900, 1536×864, and 1584×1230, with the message panel readable and all
+   furniture, toys, Patch, lights, flowers, and gifts visually grounded.
+4. Re-run full journey geometry, Toy World axe/keyboard/target checks, console
+   and network checks, reduced-motion behavior, and public GitHub Pages smoke QA.
+5. Keep this goal active until the public Pages build is verified and the user
    accepts the visual and motion quality; then continue future worlds separately.
 
