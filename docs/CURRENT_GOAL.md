@@ -1,6 +1,6 @@
 # Luna, In Every Tomorrow — Living Project Goal
 
-Last updated: 2026-11-07
+Last updated: 2026-11-09
 
 ## North star
 
@@ -205,6 +205,12 @@ reduced-motion.
 - GitHub repository and deployed manifest were independently verified.
 - GitHub Pages is the authoritative public delivery URL after each public build
   is verified against the expected commit and browser evidence.
+- The unified companion build is live from public commit
+  `11d56edd06151228d8c7c5b5dbd90167af1dc850`. Public QA confirms that the
+  persistent Patch launcher and modal both render live atlas frames, the Toy
+  Room stays grounded at all four laptop acceptance sizes, and the deployed
+  site has zero console/network errors, horizontal overflow, axe A/AA findings,
+  or undersized interactive targets.
 - Screenshot review of version 2 found excessive desktop dead space, a guide
   modal covering Patch, competing prop scale, downward camera drift, and a
   visibly split puppet. Version 3 replaces it with coherent full-body sprite
@@ -249,17 +255,43 @@ The project is not complete until all are true:
 
 ## Immediate next work
 
-1. Publish the unified Patch companion pass: the persistent launcher and modal
-   now share the Toy World full-body atlases instead of using a mis-cropped 5×5
-   sprite assumption and a separate static portrait.
-2. Verify distinct live frame motion for idle, hug, quiet, breathe, promise,
-   treat, cheer, and pet states; pause animation in hidden tabs and cap frame
-   rate on lower-end devices.
-3. Preserve Toy World v6 as one physically coherent scene at 1366×768,
-   1440×900, 1536×864, and 1584×1230, with the message panel readable and all
-   furniture, toys, Patch, lights, flowers, and gifts visually grounded.
-4. Re-run full journey geometry, Toy World axe/keyboard/target checks, console
-   and network checks, reduced-motion behavior, and public GitHub Pages smoke QA.
-5. Keep this goal active until the public Pages build is verified and the user
-   accepts the visual and motion quality; then continue future worlds separately.
+1. Publish and verify the November 9 journey/companion corrections. The previous
+   broad all-pass claim did not cover actual chapter navigation or companion
+   dialog accessibility; do not repeat it as proof of completion.
+2. Corrected the duplicate 148px chapter anchor offset, extended compact laptop
+   composition through 1000px viewport height, and separated continuation controls
+   from the corner companion. Verify using real first-visit clicks, not only
+   injected unlocked sections.
+3. Companion corrections: repeated actions restart, closing resets both renderers,
+   closed/hidden renderers stop scheduling frames, live reduced-motion preference
+   is honored, and breathing retains four-second phases regardless of motion.
+4. Local evidence: work/ecc-rework/companion-regression.json verifies motion for
+   six comfort actions, repeat/close/focus behavior, dynamic reduced motion,
+   zero automated modal axe findings, no laptop dialog clipping at all four
+   target sizes, and no horizontal overflow at 768px and 390px. Small-screen
+   dialogs intentionally scroll vertically so all controls remain reachable.
+5. Visual evidence is a qualitative comparison with the supplied video contact
+   sheets and reference composition. The scene uses a finite illustrated sprite
+   sequence; it is not pixel-identical to the videos or a fully rigged 3D render.
+   Automated axe results do not prove complete accessibility; screen-reader and
+   user visual acceptance remain separate gates.
+6. Keep the goal active for the user's scene/motion acceptance after the deployed
+   build is verified. Future music, photograph, and ice-cream worlds remain
+   extension points, not part of this release.
 
+### November 9 verification detail
+
+- Actual first visit passed 28 normal clicks without unlocking sections through
+  DOM injection: guide, boot, all eight memories, garden, letter, proposal,
+  all six dreams, Chapter 10 and Toy Room. No runtime/network errors.
+- The final guide now points to the worlds card; both world-entry links remain
+  clear of the guide and director overlays at 1366×768.
+- Modal screenshot review at 1366×768 and 1584×1230 confirms the breathing
+  controls, speech, pet button, and room link fit without clipping. The modal
+  accessibility scan returned zero automated findings.
+- Toy Room reduced-motion check: coherent frozen frame, no family/board
+  transform, no physics inline movement.
+- Independent layout review completed. Independent code reviewer could not
+  finish because of account usage limits; local code review, syntax validation,
+  regression assertions and screenshots completed. Do not describe that as a
+  completed independent code review.

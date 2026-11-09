@@ -518,7 +518,7 @@
       else setGuideTarget(next, "the horizon is complete", "Now write the next commit.");
       return;
     }
-    if (scene === "forever") { setGuideTarget("#replayButton", "you reached the open ending", "There is no final page—only every tomorrow after this one."); return; }
+    if (scene === "forever") { setGuideTarget(".worlds-chapter-card", "our universe keeps growing", "Visit Patch’s room for a little company, or explore the world atlas."); return; }
     if (next) setGuideTarget(next, "the path continues here", "The butterflies are waiting on the next chapter.");
   }
 
@@ -605,32 +605,41 @@
       this.action = "idle";
       this.startedAt = performance.now();
       this.frame = -1;
-      this.raf = 0;
-      this.visible = !document.hidden;
+      this.timer = 0;
+      this.motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
       this.fps = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4 ? 6 : 10;
-      this.lastPaint = 0;
-      this.observer = new MutationObserver(() => this.setAction(stateHost.dataset.patchState || "idle"));
-      this.observer.observe(stateHost, { attributes: true, attributeFilter: ["data-patch-state"] });
-      this.onVisibility = () => {
-        this.visible = !document.hidden;
-        if (this.visible && !reduceMotion && !this.raf) this.raf = requestAnimationFrame(time => this.render(time));
-      };
-      document.addEventListener("visibilitychange", this.onVisibility);
-      this.setAction(stateHost.dataset.patchState || "idle", true);
-      if (!reduceMotion) this.raf = requestAnimationFrame(time => this.render(time));
+      this.observer = new MutationObserver(records => {
+        if (records.some(record => record.attributeName === "data-patch-state")) {
+          this.setAction(stateHost.dataset.patchState || "idle");
+        } else this.refresh();
+      });
+      this.observer.observe(stateHost, { attributes: true, attributeFilter: ["data-patch-state", "open", "class"] });
+      // The launcher is obscured while a dialog is open; closed dialog renderers
+      // should do no animation work at all.
+      if (stateHost !== patchDen) this.observer.observe(patchDen, { attributes: true, attributeFilter: ["open"] });
+      document.addEventListener("visibilitychange", () => this.refresh());
+      this.motionPreference.addEventListener("change", () => this.refresh());
+      this.setAction(stateHost.dataset.patchState || "idle");
     }
 
-    setAction(action, initial = false) {
+    setAction(action) {
       const next = PATCH_RENDER_ACTIONS[action] ? action : "idle";
-      if (!initial && next === this.action) return;
       this.action = next;
       this.node.dataset.action = next;
       this.startedAt = performance.now();
       this.frame = -1;
-      if (reduceMotion) {
-        const frames = PATCH_RENDER_ACTIONS[next].frames;
-        this.paint(frames[Math.floor(frames.length / 2)], PATCH_RENDER_ACTIONS[next].atlas);
+      this.refresh();
+    }
+
+    refresh() {
+      clearTimeout(this.timer);
+      this.timer = 0;
+      const action = PATCH_RENDER_ACTIONS[this.action];
+      if (this.motionPreference.matches) {
+        this.paint(action.frames[Math.floor(action.frames.length / 2)], action.atlas);
+        return;
       }
+      this.render();
     }
 
     paint(frame, atlas) {
@@ -645,22 +654,25 @@
       });
     }
 
-    render(time) {
-      this.raf = 0;
-      if (!this.visible || reduceMotion) return;
-      if (time - this.lastPaint >= 1000 / this.fps) {
-        const action = PATCH_RENDER_ACTIONS[this.action] || PATCH_RENDER_ACTIONS.idle;
-        const elapsed = Math.max(0, time - this.startedAt);
-        const progress = action.loop ? (elapsed % action.duration) / action.duration : Math.min(1, elapsed / action.duration);
-        const index = Math.min(action.frames.length - 1, Math.floor(progress * action.frames.length));
-        this.paint(action.frames[index], action.atlas);
-        this.lastPaint = time;
-      }
-      this.raf = requestAnimationFrame(next => this.render(next));
+    render() {
+      this.timer = 0;
+      const visible = this.stateHost === patchDen ? patchDen.open : patchCompanion.classList.contains("awake") && !patchDen.open;
+      if (document.hidden || !visible || this.motionPreference.matches) return;
+      const action = PATCH_RENDER_ACTIONS[this.action];
+      const elapsed = Math.max(0, performance.now() - this.startedAt);
+      const position = action.loop ? elapsed % action.duration : Math.min(action.duration, elapsed);
+      const frameDuration = action.duration / action.frames.length;
+      const index = Math.min(action.frames.length - 1, Math.floor(position / frameDuration));
+      this.paint(action.frames[index], action.atlas);
+      if (!action.loop && elapsed >= action.duration) return;
+      // Wake only for the next actual pose, rather than scheduling 60 callbacks
+      // every second for an atlas with a handful of deliberately held frames.
+      const delay = Math.max(1000 / this.fps, frameDuration - position % frameDuration);
+      this.timer = setTimeout(() => this.render(), delay);
     }
   }
 
-  const patchRenderers = [
+  [
     new PatchFrameRenderer(document.querySelector('[data-patch-render="mini"]'), patchCompanion),
     new PatchFrameRenderer(document.querySelector('[data-patch-render="den"]'), patchDen),
   ];
@@ -668,6 +680,7 @@
   function clearPatchAction() {
     clearTimeout(patchActionTimer);
     clearTimeout(patchBreathTimer);
+    patchBusy = false;
     patchBreath.hidden = true;
     patchActions.forEach(button => button.classList.remove("active"));
   }
@@ -683,6 +696,7 @@
         patchBusy = false;
         patchDen.dataset.patchState = "idle";
         patchCompanion.dataset.patchState = "idle";
+        patchActions.forEach(button => button.classList.remove("active"));
         patchSpeech.textContent = "I’ll be right here. You do not have to entertain me.";
       }, reduceMotion ? Math.min(duration, 900) : duration);
     }
@@ -709,6 +723,7 @@
   }
 
   function openPatch() {
+    clearPatchAction();
     clearTimeout(patchWhisperTimer);
     patchWhisper.hidden = true;
     patchSummon.setAttribute("aria-expanded", "true");
@@ -723,6 +738,7 @@
     patchBusy = false;
     patchSummon.setAttribute("aria-expanded", "false");
     patchDen.dataset.patchState = "idle";
+    patchCompanion.dataset.patchState = "idle";
     if (patchDen.open) patchDen.close();
     schedulePatchIdle();
   }
@@ -743,7 +759,7 @@
       patchSpeech.textContent = breathingIn
         ? "Slowly. No perfect breath required. Just make a little room."
         : "Let the shoulders fall. Patch is carrying absolutely nothing with dignity.";
-      const delay = reduceMotion ? 1200 : 4000;
+      const delay = 4000;
       patchBreathTimer = setTimeout(() => {
         if (!breathingIn) cycle += 1;
         breathingIn = !breathingIn;
@@ -752,6 +768,7 @@
           patchBreath.hidden = true;
           patchDen.dataset.patchState = "idle";
           patchCompanion.dataset.patchState = "idle";
+          patchActions.forEach(button => button.classList.remove("active"));
           patchSpeech.textContent = "Three breaths. Nothing had to be fixed. You still made a little room—and that counts.";
           return;
         }
@@ -973,4 +990,3 @@
   addEventListener("pointermove", e => { state.mouseX = e.clientX / innerWidth - .5; state.mouseY = e.clientY / innerHeight - .5; }, { passive: true });
   resize(); startRendering();
 })();
-

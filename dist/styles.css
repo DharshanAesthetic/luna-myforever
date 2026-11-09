@@ -16,7 +16,7 @@
 }
 
 * { box-sizing: border-box; }
-html { max-width: 100%; overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 78px; background: var(--bg); }
+html { max-width: 100%; overflow-x: clip; scroll-behavior: smooth; background: var(--bg); }
 body {
   margin: 0;
   color: var(--ink);
@@ -200,7 +200,7 @@ body.guided .guide-star { opacity: 1; transform: translate(-50%,-50%) scale(1); 
 .patch-pet-zone:hover { opacity: 1; color: var(--cyan); border-color: rgba(128,212,210,.28); transform: translateX(-50%) translateY(-2px); }
 .patch-speech { position: absolute; z-index: 3; left: 26px; right: 26px; bottom: 22px; min-height: 48px; margin: 0; padding: 12px 16px; border: 1px solid rgba(255,255,255,.08); border-radius: 16px; color: #bbb3bf; background: rgba(7,6,12,.78); font: 15px/1.45 var(--serif); text-align: center; text-wrap: pretty; backdrop-filter: blur(15px); }
 
-.patch-console { padding: clamp(48px,6vw,78px); display: flex; flex-direction: column; justify-content: center; }
+.patch-console { padding: clamp(32px,4vw,52px); display: flex; flex-direction: column; justify-content: center; }
 .patch-console h2 { margin: 0 0 20px; font-size: clamp(58px,7vw,86px); line-height: .92; }
 .patch-console h2 em { color: var(--rose); }
 .patch-intro { max-width: 590px; margin: 0 0 28px; color: #b9b1bd; font: 17px/1.6 var(--serif); text-wrap: pretty; }
@@ -210,21 +210,43 @@ body.guided .guide-star { opacity: 1; transform: translate(-50%,-50%) scale(1); 
 .patch-actions button:hover { color: var(--ink); border-color: rgba(232,144,172,.28); background: rgba(232,144,172,.045); transform: translateY(-2px); box-shadow: 0 12px 35px rgba(0,0,0,.18); }
 .patch-actions button:active { transform: scale(.97); }
 .patch-actions button.active { color: var(--ink); border-color: rgba(128,212,210,.3); background: rgba(128,212,210,.055); }
-.patch-actions button span { grid-row: 1 / 3; align-self: center; color: #5f5664; font-size: 8px; font-variant-numeric: tabular-nums; }
+.patch-actions button span { grid-row: 1 / 3; align-self: center; color: #928797; font-size: 8px; font-variant-numeric: tabular-nums; }
 .patch-actions button b { color: #c8bdca; font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
 .patch-actions button small { color: #8d8390; font: 13px/1.1 var(--serif); }
 .patch-breath { position: relative; min-height: 64px; display: grid; grid-template-columns: 46px 1fr auto; align-items: center; gap: 12px; margin-top: 12px; padding: 9px 14px; border: 1px solid rgba(128,212,210,.16); border-radius: 15px; background: rgba(128,212,210,.035); }
 .patch-breath[hidden] { display: none; }
 .patch-breath > span { width: 36px; height: 36px; border: 1px solid var(--cyan); border-radius: 50%; box-shadow: 0 0 25px rgba(128,212,210,.12); animation: patchBreathOrb 8s ease-in-out infinite; }
 .patch-breath b { color: var(--cyan); font-size: 9px; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; }
-.patch-breath small { color: #746b78; font-size: 9px; font-variant-numeric: tabular-nums; }
-.patch-privacy { margin: 18px 0 0; color: #554e59; font-size: 8px; letter-spacing: .1em; text-transform: uppercase; }
+.patch-breath small { color: #a89eae; font-size: 9px; font-variant-numeric: tabular-nums; }
+.patch-privacy { margin: 18px 0 0; color: #918695; font-size: 9px; line-height: 1.6; letter-spacing: .08em; }
 .patch-privacy span { color: var(--rose); }
 .patch-room-link { min-height: 58px; display: grid; grid-template-columns: 62px 1fr auto; align-items: center; gap: 10px; margin-top: 12px; padding: 10px 13px; border: 1px solid rgba(232,144,172,.18); border-radius: 14px; color: #a89faa; background: linear-gradient(90deg,rgba(232,144,172,.055),rgba(128,212,210,.025)); text-decoration: none; transition: transform .3s var(--ease), border-color .3s ease, color .3s ease; }
 .patch-room-link:hover { color: var(--ink); border-color: rgba(128,212,210,.32); transform: translateY(-2px); }
 .patch-room-link span { color: var(--rose); font-size: 7px; letter-spacing: .1em; }
 .patch-room-link b { font-size: 8px; font-weight: 400; letter-spacing: .09em; text-transform: uppercase; }
 .patch-room-link i { color: var(--cyan); font-style: normal; }
+
+@media (min-width: 701px) and (max-width: 1000px) {
+  .patch-den { overflow-y: auto; }
+  .patch-den-grid { grid-template-columns: minmax(0, 1fr); }
+  .patch-console { padding: 36px; }
+}
+
+/* Keep long comfort messages clear of the explicit head-pat control. */
+.patch-stage { grid-template-rows: 1fr auto auto; align-content: center; gap: 12px; padding: 50px 26px 22px; }
+.patch-pet-zone { position: relative; left: auto; bottom: auto; transform: none; opacity: 1; color: #b9adbf; margin: 0; }
+.patch-pet-zone:hover { transform: translateY(-2px); }
+.patch-speech { position: relative; left: auto; right: auto; bottom: auto; width: 100%; }
+
+@media (min-width: 701px) and (max-height: 900px) {
+  .patch-console { padding: 34px 40px; }
+  .patch-console h2 { font-size: 66px; margin-bottom: 16px; }
+  .patch-intro { margin-bottom: 20px; }
+  .patch-den-grid, .patch-stage { min-height: 600px; }
+  .patch-stage { padding-top: 42px; }
+  .patch-model-mount { width: min(330px, 87%); margin-top: 0; }
+  .patch-console .eyebrow { margin-bottom: 20px; }
+}
 
 .patch-den[data-patch-state="blink"] .patch-lid,
 .patch-den[data-patch-state="quiet"] .patch-lid { opacity: 1; }
@@ -294,7 +316,7 @@ main, footer { position: relative; z-index: 2; }
 .scene {
   min-height: 100svh; position: relative; display: grid; place-items: center;
   padding: 90px max(24px, 7vw) 74px; isolation: isolate;
-  scroll-margin-top: 70px;
+  scroll-margin-top: 0;
   perspective: 1200px;
 }
 .scene.active h2 { transform: translate3d(calc(var(--camera,0) * -8px), calc(var(--camera,0) * -26px), 0) rotateX(calc(var(--camera,0) * -1.8deg)); transition: transform .12s linear; }
@@ -556,8 +578,14 @@ body.celebrating .hud { opacity: 0; transition: 1s; }
 @keyframes sealFloat { 50% { transform: rotate(4deg) translateY(-5px); box-shadow: 0 23px 45px rgba(0,0,0,.55), 0 0 24px rgba(126,35,72,.25); } }
 @keyframes dreamSignal { 50% { border-color: rgba(128,212,210,.13); transform: translateX(2px); } }
 
+/* Reserve the right corner for Patch without covering chapter navigation. */
+@media (min-width: 701px) {
+  .continue-button { right: max(246px, 18vw); }
+  .director-cue { left: 24px; width: 260px; }
+}
+
 /* Laptop-first composition: keep every chapter inside the same readable stage. */
-@media (min-width: 701px) and (max-height: 820px) {
+@media (min-width: 701px) and (max-height: 1000px) {
   .scene { padding-top: 78px; padding-bottom: 86px; }
   h2 { font-size: clamp(46px, 6.7vw, 86px); margin-bottom: 24px; }
   .lead { font-size: clamp(18px, 2vw, 24px); line-height: 1.45; }
@@ -660,8 +688,8 @@ body.celebrating .hud { opacity: 0; transition: 1s; }
   .patch-stage { min-height: 390px; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.07); }
   .patch-model-mount { width: min(285px, 78%); margin-top: -24px; }
   .patch-moon-halo { width: 300px; }
-  .patch-speech { bottom: 12px; left: 12px; right: 12px; font-size: 13px; }
-  .patch-pet-zone { bottom: 70px; }
+  .patch-stage { padding: 38px 12px 16px; }
+  .patch-speech { font-size: 14px; }
   .patch-console { padding: 36px 22px 28px; }
   .patch-console h2 { font-size: 58px; }
   .patch-actions { grid-template-columns: 1fr; }
@@ -671,4 +699,3 @@ body.celebrating .hud { opacity: 0; transition: 1s; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms!important; animation-iteration-count: 1!important; transition-duration: .01ms!important; }
 }
-
