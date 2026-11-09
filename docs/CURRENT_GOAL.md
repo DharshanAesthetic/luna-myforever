@@ -253,7 +253,7 @@ The project is not complete until all are true:
 - A human review confirms the experience feels personal, cinematic, comforting,
   and worthy of the supplied references—not merely functional.
 
-## Immediate next work
+## Accepted release — 2026-11-09
 
 User accepted the room and Patch motion on 2026-11-09: “Yes, I’m happy with it.”
 The journey/companion correction build `9add4db8634bb032f17fb49cd9d5b1191103696b`
@@ -262,9 +262,24 @@ were compared with local source and matched. Public companion regression passed.
 Final room interaction corrections add bouquet/gift keepsakes, narrow the portrait
 head-pat hit area, and make decorative lamp glow ignore pointer events. The four
 laptop sizes and 390px portrait now allow ordinary activation of all eleven room
-objects, without forced clicks. Await final room deployment verification only.
+objects, without forced clicks.
 
-1. Publish and verify the November 9 journey/companion corrections. The previous
+Final production code: `c475948c78e9e69c85875181035762aa8d4f37f4`.
+Deployment: Actions run `42602797091`, completed successfully.
+Private source backup: `21ee9e3` (following the journey fixes in `c2b5d79`).
+All changed public root and Toy Room HTML/CSS/JS files match the tested local
+source. Live root, atlas and room axe checks returned zero automated violations,
+console/network errors or undersized targets. Earlier open-ended quality gates
+are resolved for this accepted illustrated-sprite release; it is not a claim of
+pixel identity with the reference videos or full 3D animation.
+
+No further worlds are authorized in this release. Resume future work from this
+document and the `dist/worlds/worlds.js` registry. Keep the current source and
+reference assets; do not rebuild the visual direction without a new request.
+
+### Completed correction work and evidence
+
+1. Published and verified the November 9 journey/companion corrections. The previous
    broad all-pass claim did not cover actual chapter navigation or companion
    dialog accessibility; do not repeat it as proof of completion.
 2. Corrected the duplicate 148px chapter anchor offset, extended compact laptop
@@ -284,8 +299,7 @@ objects, without forced clicks. Await final room deployment verification only.
    sequence; it is not pixel-identical to the videos or a fully rigged 3D render.
    Automated axe results do not prove complete accessibility; screen-reader and
    user visual acceptance remain separate gates.
-6. User scene/motion acceptance has been received. Close this release after final
-   public verification; future music, photograph, and ice-cream worlds remain
+6. User scene/motion acceptance has been received. Future music, photograph, and ice-cream worlds remain
    extension points, not part of this release.
 
 ### November 9 verification detail
