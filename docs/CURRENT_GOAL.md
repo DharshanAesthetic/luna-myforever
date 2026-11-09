@@ -255,6 +255,15 @@ The project is not complete until all are true:
 
 ## Immediate next work
 
+User accepted the room and Patch motion on 2026-11-09: “Yes, I’m happy with it.”
+The journey/companion correction build `9add4db8634bb032f17fb49cd9d5b1191103696b`
+deployed successfully in Actions run `42601872077`. All three public root files
+were compared with local source and matched. Public companion regression passed.
+Final room interaction corrections add bouquet/gift keepsakes, narrow the portrait
+head-pat hit area, and make decorative lamp glow ignore pointer events. The four
+laptop sizes and 390px portrait now allow ordinary activation of all eleven room
+objects, without forced clicks. Await final room deployment verification only.
+
 1. Publish and verify the November 9 journey/companion corrections. The previous
    broad all-pass claim did not cover actual chapter navigation or companion
    dialog accessibility; do not repeat it as proof of completion.
@@ -275,8 +284,8 @@ The project is not complete until all are true:
    sequence; it is not pixel-identical to the videos or a fully rigged 3D render.
    Automated axe results do not prove complete accessibility; screen-reader and
    user visual acceptance remain separate gates.
-6. Keep the goal active for the user's scene/motion acceptance after the deployed
-   build is verified. Future music, photograph, and ice-cream worlds remain
+6. User scene/motion acceptance has been received. Close this release after final
+   public verification; future music, photograph, and ice-cream worlds remain
    extension points, not part of this release.
 
 ### November 9 verification detail

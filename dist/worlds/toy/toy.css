@@ -1362,6 +1362,24 @@ body.toy-world {
   transform-origin: 50% 100%;
 }
 
+.foreground-keepsake {
+  position: absolute; z-index: 11; bottom: 18%; width: 76px; min-height: 52px;
+  display: grid; place-items: center; gap: 4px; padding: 8px;
+  border: 1px solid rgba(232,144,172,.28); border-radius: 18px;
+  color: #f0dce5; background: rgba(18,8,19,.8); cursor: pointer;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.flower-keepsake { left: 2%; }
+.gift-keepsake { right: 2%; }
+.foreground-keepsake span { color: #f3c5d6; font-size: 17px; }
+.foreground-keepsake small { font: 11px/1.2 Georgia, serif; }
+.foreground-keepsake:hover, .foreground-keepsake:focus-visible, .foreground-keepsake.active {
+  border-color: #df9cb8; box-shadow: 0 0 28px rgba(232,144,172,.32);
+}
+.foreground-keepsake.active span { animation: keepsake-glow 1.1s ease-in-out 2; }
+.room-object > [aria-hidden="true"] { pointer-events: none; }
+@keyframes keepsake-glow { 50% { transform: scale(1.25); text-shadow: 0 0 14px #f3c5d6; } }
+
 .breath-orbit {
   inset: 54% auto auto 50%;
   width: clamp(280px,29vw,470px);
@@ -1613,10 +1631,10 @@ body.toy-world {
 @media (max-aspect-ratio: 1 / 1) {
   .patch-home,
   .patch-home[data-patch-state] { left: 50%; }
+  .patch-home .pet-zone { inset: 22% 24% auto; height: 28%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .patch-master-frame,
   .patch-sprite { transition: none; }
 }
-

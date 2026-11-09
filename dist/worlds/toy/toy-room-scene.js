@@ -7,7 +7,9 @@ const OBJECT_COPY = {
   carousel: ["Moon Carousel", "One small song, circling until the room feels softer."],
   globe: ["Fairylight Globe", "These are the little lights we saved for a dark day."],
   lamp: ["Cherry Sundae Nightlight", "Warm mode enabled. The room can be gentle now."],
-  cat: ["Night Cat & Quiet Chair", "The cat inspected today. Official verdict: you deserve somewhere soft to land."]
+  cat: ["Night Cat & Quiet Chair", "The cat inspected today. Official verdict: you deserve somewhere soft to land."],
+  flowers: ["A bouquet worth keeping.", "You sent me flowers. I wanted a little of that tenderness to keep blooming here for you."],
+  gifts: ["I kept the feeling.", "The gifts you made for me belong in this universe too. A reminder that you have made my days softer, just by being you."]
 };
 
 const REMINDERS = [
